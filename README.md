@@ -4,4 +4,4 @@
 
 * This app is my first attempt at a full-stack web app and it makes use of `node.js` along with `express` npm package.
 
-* Check out by clickin here!
+* Check out by clickin here ` ` !
