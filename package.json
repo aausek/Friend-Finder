@@ -1,0 +1,25 @@
+{
+  "name": "Friend-Finder",
+  "version": "1.0.0",
+  "description": "* Get ready to find your match! This app takes in input from a user to match them with the most compatible friend-candidate! Give it a try by checking out our app and hopefully making friends!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aausek/Friend-Finder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aausek/Friend-Finder/issues"
+  },
+  "homepage": "https://github.com/aausek/Friend-Finder#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "path": "^0.12.7"
+  }
+}
