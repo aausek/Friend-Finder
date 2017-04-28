@@ -30,7 +30,7 @@
 			</div>
 		<h4>Link to Photo Image (Required)</h4>
 			<div class="form-group">
-				<input type="text" class="form-control" id="name">
+				<input type="text" class="form-control" id="photo">
 			</div>
 		<hr>
 		<h3 class="text-left"><b>Question 1</b></h3>
@@ -136,7 +136,7 @@
 			</select>
 		<br><br>
 
-		<button type="submit" class="btn btn-primary btn-lg btn-block"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></span> Submit</button>
+		<button type="submit" class="btn btn-primary btn-lg btn-block submit"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></span> Submit</button>
 		<hr>
 
 		<footer class="footer">
@@ -150,15 +150,49 @@
 	<script type="text/javascript">
 		
 		// Chosen CSS
-	    var config = {
-	      '.chosen-select'           : {},
-	      '.chosen-select-deselect'  : {allow_single_deselect:true},
-	      '.chosen-select-no-single' : {disable_search_threshold:10},
-	      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'}
-	    }
-	    for (var selector in config) {
-	      $(selector).chosen(config[selector]);
-	    }
+		//Setting the width of answer dropdowns
+	    $(".chosen-select").chosen({width: "13%"});
+
+	    //Once the user clicks "Submit" the selected data is registered and displayed in the modal
+	    $(".submit").on("click", function(event) {
+	    	event.preventDefault();
+	    	
+	    	//Assigning the selectiions to a new object "newFriend"
+	    	var newFriend = {
+	    		name: $("#name").val(),
+	    		photo: $("#photo").val(),
+	    		scores: [$("select[id=num1] option:selected").val(),
+	    			$("select[id=num2] option:selected").val(),
+	    			$("select[id=num3] option:selected").val(),
+	    			$("select[id=num4] option:selected").val(),
+	    			$("select[id=num5] option:selected").val(),
+	    			$("select[id=num6] option:selected").val(),
+	    			$("select[id=num7] option:selected").val(),
+	    			$("select[id=num8] option:selected").val(),
+	    			$("select[id=num9] option:selected").val(),
+	    			$("select[id=num10] option:selected").val(),
+	    			]
+	    	};
+	    	//Logging the response for functionality check
+	    	console.log(newFriend);
+
+	    	//Add user entry to JSON object "friends"
+	    	$.post("/api/friends", newFriend , function(data) {
+		   		if (data) {
+		   			console.log("New friend added!");
+		   		}
+	   		});
+
+	   		var newScores = newFriend.scores.map(Number);
+	   		console.log(newScores);
+
+	   		var totalDiff = $(newFriend.scores).not(newScores).get();
+	   		console.log(totalDiff);
+	    });
+
+	    //Add user entry to JSON object "friends"
+	  
+
 	</script>
 
 </body>
