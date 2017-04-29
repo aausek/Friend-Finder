@@ -6,9 +6,11 @@
 
 	<!-- Latest compiled and minified CSS -->
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
   	<!-- JQUERY CDN -->
   	<script src="https://code.jquery.com/jquery.js"></script>
+
+  	<!-- BOOTSTRAPING THIS BABY -->
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   	<!-- Font Awesome CDN -->
   	<script src="https://use.fontawesome.com/97a3d525bd.js"></script>
@@ -146,6 +148,25 @@
 		</footer>
 
 	</div>
+	<div id="show-modal" class="modal fade">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Friend | Finder</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p></p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+</div>
 
 	<script type="text/javascript">
 		
@@ -186,13 +207,49 @@
 	   		var newScores = newFriend.scores.map(Number);
 	   		console.log(newScores);
 
-	   		var totalDiff = $(newFriend.scores).not(newScores).get();
-	   		console.log(totalDiff);
+	   		// var totalDiff = $(newFriend.scores).not(newScores).get();
+	   		// console.log(totalDiff);
+	   		var totalDiff = 0,
+	   			match;
+
+	   		function calcDiff(newFriend) {
+	   			var currentURL = window.location.origin;
+	   			$.ajax({
+	   				url: currentURL + "/api/friends",
+	   				method: "GET"
+	   			})
+	   			.done(function(friendArray) {
+	   				console.log("URL:" + currentURL + "/api/friends");
+	   				console.log(friendArray[0]);
+	   				match = friendArray[0];
+	   				var currentMatch = 99;
+	   				for (var i = 0; i < friendArray.length; i++) {
+	   					totalDiff = 0;
+	   					console.log(friendArray[i].scores);
+	   					for (var x = 0; x < newFriend.scores.length; x++) {
+	   						var theDiff = Math.abs(friendArray[i].scores[x] - newFriend.scores[x]);
+	   						totalDiff += theDiff;
+	   					}
+		   				if (totalDiff === currentMatch) {
+		   					currentMatch = totalDiff;
+		   					console.log(totalDiff);
+		   					match = friendArray[i];
+		   					console.log(match);
+	   					}
+	   				}
+	   				modalDisplay(match);
+	   			});
+	   		}
+	   		calcDiff(newFriend);
+
+	   		function modalDisplay(match) {
+	   			$(".modal-body").append("<p>Your most compatible match is: " + match.name + "</p>");
+	   			$(".modal-body").append('<img src="' + match.photo + '"/>');
+	   			$("#show-modal").modal("show");
+	   		}
 	    });
 
 	    //Add user entry to JSON object "friends"
-	  
-
 	</script>
 
 </body>
