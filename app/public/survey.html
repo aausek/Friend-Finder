@@ -185,22 +185,34 @@
 	    				valid = false;
 	    				alert("Please fill out all fields before submitting!");
 	    				return false;
-	    			}else {
-	    				var newFriend = {
-		    		name: $("#name").val(),
-		    		photo: $("#photo").val(),
-		    		scores: [$("select[id=num1] option:selected").val(),
-		    			$("select[id=num2] option:selected").val(),
-		    			$("select[id=num3] option:selected").val(),
-		    			$("select[id=num4] option:selected").val(),
-		    			$("select[id=num5] option:selected").val(),
-		    			$("select[id=num6] option:selected").val(),
-		    			$("select[id=num7] option:selected").val(),
-		    			$("select[id=num8] option:selected").val(),
-		    			$("select[id=num9] option:selected").val(),
-		    			$("select[id=num10] option:selected").val(),
-		    			]
-		    	};
+	    			}
+	    		});	
+		    	$('.chosen-select').each(function() {
+				  	if( $(this).val() === ""){
+				  		valid = false
+				  	}
+				});
+				  	return valid;
+	    	}
+	    	validateIt();
+	    	
+	    	if (validateIt() === true ) {
+	    	//Assigning the selectiions to a new object "newFriend"
+	    	var newFriend = {
+	    		name: $("#name").val(),
+	    		photo: $("#photo").val(),
+	    		scores: [$("select[id=num1] option:selected").val(),
+	    			$("select[id=num2] option:selected").val(),
+	    			$("select[id=num3] option:selected").val(),
+	    			$("select[id=num4] option:selected").val(),
+	    			$("select[id=num5] option:selected").val(),
+	    			$("select[id=num6] option:selected").val(),
+	    			$("select[id=num7] option:selected").val(),
+	    			$("select[id=num8] option:selected").val(),
+	    			$("select[id=num9] option:selected").val(),
+	    			$("select[id=num10] option:selected").val(),
+	    			]
+	    	};
 	    	//Logging the response for functionality check
 	    	console.log(newFriend);
 
@@ -210,39 +222,10 @@
 		   			console.log("New friend added!");
 		   		}
 	   		});
-	    			}
-	    		});
-	    	}
-	    	validateIt();
-	    	
-	    	//Assigning the selectiions to a new object "newFriend"
-	    	// var newFriend = {
-	    	// 	name: $("#name").val(),
-	    	// 	photo: $("#photo").val(),
-	    	// 	scores: [$("select[id=num1] option:selected").val(),
-	    	// 		$("select[id=num2] option:selected").val(),
-	    	// 		$("select[id=num3] option:selected").val(),
-	    	// 		$("select[id=num4] option:selected").val(),
-	    	// 		$("select[id=num5] option:selected").val(),
-	    	// 		$("select[id=num6] option:selected").val(),
-	    	// 		$("select[id=num7] option:selected").val(),
-	    	// 		$("select[id=num8] option:selected").val(),
-	    	// 		$("select[id=num9] option:selected").val(),
-	    	// 		$("select[id=num10] option:selected").val(),
-	    	// 		]
-	    	// };
-	    	// //Logging the response for functionality check
-	    	// console.log(newFriend);
 
-	    	// //Add user entry to JSON object "friends"
-	    	// $.post("/api/friends", newFriend , function(data) {
-		   	// 	if (data) {
-		   	// 		console.log("New friend added!");
-		   	// 	}
-	   		// });
-
-	   		// var newScores = newFriend.scores.map(Number);
-	   		// console.log(newScores);
+	   		var newScores = newFriend.scores.map(Number);
+	   		console.log(newScores);
+	   	}	
 
 	   		// var totalDiff = $(newFriend.scores).not(newScores).get();
 	   		// console.log(totalDiff);
